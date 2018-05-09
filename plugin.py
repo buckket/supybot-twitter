@@ -88,7 +88,7 @@ class Twitter(callbacks.Plugin):
                     if not text.startswith("@"):
                         username = api.get_status(status_id).user.screen_name
                         text = "@{} {}".format(username, text)
-                    message = utils.str.ellipsisify(text, 140)
+                    message = utils.str.ellipsisify(text, 280)
                     status = api.update_status(status=message, in_reply_to_status_id=status_id)
                 else:
                     irc.reply("Du musst mir schon einen Tweet geben, auf den sich der Unsinn beziehen soll.")
@@ -187,7 +187,7 @@ class Twitter(callbacks.Plugin):
                         text = tweet.text.replace("\n", " ")
                         text = HTMLParser.HTMLParser().unescape(text)
                         message = u"Tweet von @{}: {}".format(tweet.user.screen_name, text)
-                        message = ircutils.safeArgument(message.encode('utf-8'))
+                        message = ircutils.safeArgument(message)
                         irc.queueMsg(ircmsgs.notice(msg.args[0], message))
                     except tweepy.TweepError as e:
                         log.error("Twitter.doPrivmsg: {}".format(repr(e)))
