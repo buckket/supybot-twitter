@@ -40,7 +40,7 @@ import supybot.log as log
 
 import re
 import tweepy
-import html.parser
+import html
 
 
 class Twitter(callbacks.Plugin):
@@ -185,7 +185,7 @@ class Twitter(callbacks.Plugin):
                         api = self._get_twitter_api(msg)
                         tweet = api.get_status(status_id)
                         text = tweet.text.replace("\n", " ")
-                        text = html.parser.HTMLParser().unescape(text)
+                        text = html.unescape(text)
                         message = "Tweet von @{}: {}".format(tweet.user.screen_name, text)
                         message = ircutils.safeArgument(message)
                         irc.queueMsg(ircmsgs.notice(msg.args[0], message))
