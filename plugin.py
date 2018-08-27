@@ -94,7 +94,7 @@ class Twitter(callbacks.Plugin):
                     irc.reply("Du musst mir schon einen Tweet geben, auf den sich der Unsinn beziehen soll.")
                     return
             else:
-                message = utils.str.ellipsisify(text, 140)
+                message = utils.str.ellipsisify(text, 280)
                 status = api.update_status(status=message)
             irc.reply("https://twitter.com/{bot}/status/{status_id}".format(
                 bot=self.registryValue("botNick", msg.args[0]), status_id=status.id))
