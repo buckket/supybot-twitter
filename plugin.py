@@ -183,8 +183,8 @@ class Twitter(callbacks.Plugin):
                 if status_id:
                     try:
                         api = self._get_twitter_api(msg)
-                        tweet = api.get_status(status_id)
-                        text = tweet.text.replace("\n", " ")
+                        tweet = api.get_status(status_id, tweet_mode="extended")
+                        text = tweet.full_text.replace("\n", " ")
                         text = html.unescape(text)
                         message = "Tweet von @{}: {}".format(tweet.user.screen_name, text)
                         message = ircutils.safeArgument(message)
